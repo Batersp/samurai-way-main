@@ -9,21 +9,21 @@ export type PostType = {
 
 export const MyPosts = () => {
     return (
-        <div className={s.content}>
-
+        <div className={s.postsBlock}>
+           <h3>My posts</h3>
             <div>
-                My posts
                 <div>
                     <textarea></textarea>
+                </div>
+                <div>
                     <button>Add Post</button>
                 </div>
-                <div className={s.posts}>
-                    <Post message={'hey bro lets do it'} likeCounts={35} />
-                    <Post message={'Great game'} likeCounts={15} />
-
-
-                </div>
+            </div>
+            <div className={s.posts}>
+                <Post message={'hey bro lets do it'} likeCounts={35}/>
+                <Post message={'Great game'} likeCounts={15}/>
             </div>
         </div>
+
     )
 }
