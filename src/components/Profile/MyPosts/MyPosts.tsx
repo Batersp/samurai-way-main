@@ -7,12 +7,14 @@ export type PostType = {
     likeCounts: number
 }
 
+
 export const MyPosts = () => {
 
     let posts = [
         {id: 1, message: 'hey bro lets do it', likeCounts: 20},
         {id: 2, message: 'Great game', likeCounts: 34}
     ]
+
 
     let postsElement = posts.map(p => <Post message={p.message} likeCounts={p.likeCounts}/>)
 
