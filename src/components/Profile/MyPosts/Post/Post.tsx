@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Post.module.css'
 import {PostType} from "../MyPosts";
 
+
 export const Post:React.FC<PostType> = (props) => {
     return (
 

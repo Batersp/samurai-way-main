@@ -10,25 +10,19 @@ export type DialogPropsType = {
 
 export type MessagePropsType = {
     message: string
+    id?: number
 }
 
-export const Dialogs = () => {
+export type DialogsType = {
+    dialogs: Array<DialogPropsType>
+    messages: Array<MessagePropsType>
+}
 
-    let dialogs = [
-        {id: 1, name: 'Arteta'},
-        {id: 2, name: 'Bentdner'},
-        {id: 3, name: 'Rio Miyachi'}
-    ]
+export const Dialogs: React.FC<DialogsType> = (props) => {
 
-    let messages = [
-        {id: 1, message: 'Who want play against Barselona?'},
-        {id: 2, message: 'I can, but whats is Barselona?'},
-        {id: 3, message: 'i got you coach, i dont'}
-    ]
 
-    let dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElement = messages.map(m => <Message message={m.message}/>)
-
+    let dialogsElement = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let messagesElement = props.messages.map(m => <Message message={m.message}/>)
 
 
     return (
