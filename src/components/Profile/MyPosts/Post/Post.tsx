@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './Post.module.css'
-import {PostType} from "../MyPosts";
+import {PostsType} from "../../../../redux/state";
 
 
-export const Post:React.FC<PostType> = (props) => {
+export const Post:React.FC<PostsType> = (props) => {
     return (
 
         <div className={s.item}>
