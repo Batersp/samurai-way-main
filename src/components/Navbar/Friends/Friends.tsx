@@ -1,13 +1,9 @@
 import React from 'react';
 import s from './Friends.module.css'
-
-type FriendsPropsType = {
-    name: string
-    url: string
-}
+import {FriendsType} from "../../../redux/state";
 
 
-export const Friends = (props: FriendsPropsType) => {
+export const Friends = (props: FriendsType) => {
 
     return (
         <div className={s.friends}>
