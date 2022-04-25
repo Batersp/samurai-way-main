@@ -6,7 +6,7 @@ import {PostsType} from "../../../../redux/state";
 export const Post: React.FC<PostsType> = (props) => {
     return (
 
-        <div className={s.item}>
+        <div key={props.id} className={s.item}>
             <img src='https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg'/>
             {props.message}
             <div>

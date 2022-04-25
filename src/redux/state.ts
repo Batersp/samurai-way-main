@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 export type FriendsType = {
     name: string
     url: string
@@ -84,6 +86,7 @@ export const addPost = (postText: string) => {
         likeCounts: 0
     }
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
 }
 
 
