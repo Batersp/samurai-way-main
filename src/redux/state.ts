@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+
+}
 
 export type FriendsType = {
     name: string
@@ -89,14 +91,18 @@ export const addPost = () => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.textForNewPost = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 
 }
 
 
 export const updatePostText = (text: string) => {
     state.profilePage.textForNewPost = text
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscriber = (observer: () => void) => {
+    rerenderEntireTree = observer
 }
 
 
