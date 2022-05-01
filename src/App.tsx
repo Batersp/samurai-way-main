@@ -9,7 +9,8 @@ import {RootStateType} from "./redux/state";
 
 type AppType = {
     state: RootStateType
-    addPost: (postText: string) => void
+    addPost: () => void
+    updatePostText: (text: string) => void
 }
 
 
@@ -22,6 +23,7 @@ const App: React.FC<AppType> = (props) => {
                     <Route path='/profile' render={() => <Profile
                         profilePage={props.state.profilePage}
                         addPost={props.addPost}
+                        updatePostText={props.updatePostText}
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs
                         dialogsPage={props.state.dialogsPage}
