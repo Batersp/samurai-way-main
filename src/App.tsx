@@ -5,31 +5,29 @@ import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {RootStateType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 type AppType = {
-    state: RootStateType
-    addPost: () => void
-    updatePostText: (text: string) => void
+    store: StoreType
 }
 
-
 const App: React.FC<AppType> = (props) => {
+    const state = props.store.getState()
     return (
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar sideBar={props.state.sideBar}/>
-                <div className='app-wrapper-content'>
-                    <Route path='/profile' render={() => <Profile
-                        profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        updatePostText={props.updatePostText}
-                    />}/>
-                    <Route path='/dialogs' render={() => <Dialogs
-                        dialogsPage={props.state.dialogsPage}
-                    />}/>
-                </div>
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar sideBar={state.sideBar}/>
+            <div className='app-wrapper-content'>
+                <Route path='/profile' render={() => <Profile
+                    profilePage={state.profilePage}
+                    addPost={props.store.addPost.bind(props.store)}
+                    updatePostText={props.store.updatePostText.bind(props.store)}
+                />}/>
+                <Route path='/dialogs' render={() => <Dialogs
+                    dialogsPage={state.dialogsPage}
+                />}/>
             </div>
+        </div>
     )
 
 }

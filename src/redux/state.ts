@@ -1,6 +1,76 @@
-let rerenderEntireTree = () => {
+export type StoreType = {
+    _state: RootStateType
+    addPost: () => void
+    updatePostText: (text: string) => void
+    subscriber: (observer: () => void) => void
+    rerenderEntireTree: () => void
+    getState: () => RootStateType
 
 }
+
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'hey bro lets do it', likeCounts: 20},
+                {id: 2, message: 'Great game', likeCounts: 34}
+            ],
+            textForNewPost: ''
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Arteta'},
+                {id: 2, name: 'Bentdner'},
+                {id: 3, name: 'Rio Miyachi'}
+            ],
+            messages: [
+                {id: 1, message: 'Who want play against Barselona?'},
+                {id: 2, message: 'I can, but whats is Barselona?'},
+                {id: 3, message: 'i got you coach, i dont'}
+            ]
+        },
+        sideBar: {
+            friends: [
+                {
+                    name: 'Barak',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLCrV7FtTDbUF7H86lrvKzqoke_02pMmn7cg&usqp=CAU'
+                },
+                {
+                    name: 'Ilon',
+                    url: 'https://kubnews.ru/upload/resize_cache/webp/iblock/ba2/ba2cc9fa383e672568a551fe49b46a3f.webp'
+                },
+                {
+                    name: 'Conor',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpt1uIdn-TOiY_kHCuVGD1BvtJvUiv3YkRkQ&usqp=CAU'
+                }
+            ]
+        }
+
+    },
+    getState() {
+        return this._state
+    },
+    addPost() {
+        let newPost = {
+            id: 3,
+            message: this._state.profilePage.textForNewPost,
+            likeCounts: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.textForNewPost = ''
+        this.rerenderEntireTree()
+    },
+    updatePostText(text: string) {
+        this._state.profilePage.textForNewPost = text
+        this.rerenderEntireTree()
+    },
+    subscriber(observer: () => void) {
+        this.rerenderEntireTree = observer
+    },
+    rerenderEntireTree() {
+    }
+}
+
 
 export type FriendsType = {
     name: string
@@ -41,68 +111,6 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sideBar: SideBarType
-}
-
-
-export let state: RootStateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'hey bro lets do it', likeCounts: 20},
-            {id: 2, message: 'Great game', likeCounts: 34}
-        ],
-        textForNewPost: ''
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Arteta'},
-            {id: 2, name: 'Bentdner'},
-            {id: 3, name: 'Rio Miyachi'}
-        ],
-        messages: [
-            {id: 1, message: 'Who want play against Barselona?'},
-            {id: 2, message: 'I can, but whats is Barselona?'},
-            {id: 3, message: 'i got you coach, i dont'}
-        ]
-    },
-    sideBar: {
-        friends: [
-            {
-                name: 'Barak',
-                url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLCrV7FtTDbUF7H86lrvKzqoke_02pMmn7cg&usqp=CAU'
-            },
-            {
-                name: 'Ilon',
-                url: 'https://kubnews.ru/upload/resize_cache/webp/iblock/ba2/ba2cc9fa383e672568a551fe49b46a3f.webp'
-            },
-            {
-                name: 'Conor',
-                url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpt1uIdn-TOiY_kHCuVGD1BvtJvUiv3YkRkQ&usqp=CAU'
-            }
-        ]
-    }
-
-}
-
-export const addPost = () => {
-    let newPost = {
-        id: 3,
-        message: state.profilePage.textForNewPost,
-        likeCounts: 0
-    }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.textForNewPost = ''
-    rerenderEntireTree()
-
-}
-
-
-export const updatePostText = (text: string) => {
-    state.profilePage.textForNewPost = text
-    rerenderEntireTree()
-}
-
-export const subscriber = (observer: () => void) => {
-    rerenderEntireTree = observer
 }
 
 
