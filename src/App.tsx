@@ -23,7 +23,7 @@ const App: React.FC<AppType> = (props) => {
                     dispatch={props.store.dispatch.bind(props.store)}
                 />}/>
                 <Route path='/dialogs' render={() => <Dialogs
-                    dialogsPage={state.dialogsPage}
+                    store={props.store}
                 />}/>
             </div>
         </div>
