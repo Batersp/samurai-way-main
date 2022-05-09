@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST'
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
+import dialogsReducer, {sendMessage, updateNewMessageBodyAC} from "./dialogs-reducer";
+import profileReducer, {addPostAC, updatePostTextAC} from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 
 export type StoreType = {
@@ -14,29 +13,6 @@ export type StoreType = {
 
 export type DispatchActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessage>
-
-export const addPostAC = () => ({
-    type: 'ADD-POST' as const
-})
-
-export const updatePostTextAC = (text: string) => {
-    return {
-        type: 'UPDATE-POST-TEXT',
-        text: text
-    } as const
-}
-
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: body
-    } as const
-}
-
-export const sendMessage = () => ({
-    type: 'SEND-MESSAGE' as const
-})
-
 
 export let store: StoreType = {
     _state: {
@@ -89,28 +65,11 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 3,
-                message: this._state.profilePage.textForNewPost,
-                likeCounts: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.textForNewPost = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_POST_TEXT) {
-            this._state.profilePage.textForNewPost = action.text
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._callSubscriber()
-        } else if (action.type === SEND_MESSAGE) {
-            this._state.dialogsPage.messages.push({id: 4, message: this._state.dialogsPage.newMessageBody})
-            this._state.dialogsPage.newMessageBody = ''
-            this._callSubscriber()
-        }
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action)
+        this._callSubscriber()
     }
-
 }
 
 
