@@ -1,9 +1,29 @@
-import {DispatchActionType, ProfilePageType} from "./state";
+import {DispatchActionType} from "./state";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
 
-const profileReducer = (state: ProfilePageType, action: DispatchActionType) => {
+export type PostsType = {
+    id?: number
+    message: string
+    likeCounts: number
+}
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    textForNewPost: string
+}
+
+let initialState: ProfilePageType = {
+        posts: [
+            {id: 1, message: 'hey bro lets do it', likeCounts: 20},
+            {id: 2, message: 'Great game', likeCounts: 34}
+        ],
+        textForNewPost: ''
+    }
+
+
+const profileReducer = (state = initialState, action: DispatchActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -15,7 +35,7 @@ const profileReducer = (state: ProfilePageType, action: DispatchActionType) => {
             state.textForNewPost = ''
             return state
         case UPDATE_POST_TEXT:
-            state.textForNewPost = action.text
+            state.textForNewPost = action.payload.text
             return state
         default:
             return state
@@ -30,7 +50,7 @@ export const addPostAC = () => ({
 export const updatePostTextAC = (text: string) => {
     return {
         type: 'UPDATE-POST-TEXT',
-        text: text
+        payload: {text}
     } as const
 }
 

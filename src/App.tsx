@@ -5,14 +5,12 @@ import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {StoreType} from "./redux/state";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-type AppType = {
-    store: StoreType
-}
 
-const App: React.FC<AppType> = (props) => {
-    const state = props.store.getState()
+
+const App = () => {
+
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -22,9 +20,7 @@ const App: React.FC<AppType> = (props) => {
                     profilePage={state.profilePage}
                     dispatch={props.store.dispatch.bind(props.store)}
                 />}/>
-                <Route path='/dialogs' render={() => <Dialogs
-                    store={props.store}
-                />}/>
+                <Route path='/dialogs' render={() => <DialogsContainer />}/>
             </div>
         </div>
     )

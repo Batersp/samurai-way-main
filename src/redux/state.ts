@@ -1,4 +1,4 @@
-import dialogsReducer, {sendMessage, updateNewMessageBodyAC} from "./dialogs-reducer";
+import dialogsReducer, {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 import profileReducer, {addPostAC, updatePostTextAC} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
@@ -12,9 +12,9 @@ export type StoreType = {
 }
 
 export type DispatchActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
-    | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessage>
+    | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
