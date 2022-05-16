@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Friends.module.css'
-import {FriendsType} from "../../../redux/state";
+import {FriendsType} from "../../../redux/sidebar-reducer";
+
 
 
 export const Friends = (props: FriendsType) => {

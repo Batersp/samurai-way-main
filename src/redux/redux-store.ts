@@ -11,7 +11,7 @@ export type AppStateType = ReturnType<typeof reducers>
 let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
-    sideBar: sidebarReducer
+    NavBar: sidebarReducer
 })
 
 export let store = createStore(reducers)

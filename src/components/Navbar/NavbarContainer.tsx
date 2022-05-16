@@ -1,15 +1,15 @@
 import {connect} from "react-redux";
 import {Navbar} from "./Navbar";
-import {SideBarType} from "../../redux/sidebar-reducer";
 import {AppStateType} from "../../redux/redux-store";
+import {NavBarType} from "../../redux/sidebar-reducer";
 
 export type StateToPropsType = {
-    sideBar: SideBarType
+    NavBar: NavBarType
 }
 
 const mapStateToProps = (state: StateToPropsType): StateToPropsType => {
     return {
-        sideBar: state.sideBar
+        NavBar: state.NavBar
     }
 }
 

@@ -1,15 +1,15 @@
-import {DispatchActionType} from "./state";
+
 
 export type FriendsType = {
     name: string
     url: string
 }
 
-export type SideBarType = {
+export type NavBarType = {
     friends: Array<FriendsType>
 }
 
-let initialState: SideBarType = {
+let initialState: NavBarType = {
     friends: [
         {
             name: 'Barak',
@@ -26,10 +26,10 @@ let initialState: SideBarType = {
     ]
 }
 
-const sidebarReducer = (state = initialState, action: DispatchActionType): SideBarType => {
+const NavBarReducer = (state = initialState, action: any): NavBarType => {
 
 
     return state
 }
 
-export default sidebarReducer
+export default NavBarReducer

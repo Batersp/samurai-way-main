@@ -1,7 +1,9 @@
-import {DispatchActionType} from "./state";
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
+
+export type ProfileReducerActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
 
 export type PostsType = {
     id?: number
@@ -23,7 +25,7 @@ let initialState: ProfilePageType = {
     }
 
 
-const profileReducer = (state = initialState, action: DispatchActionType): ProfilePageType => {
+const profileReducer = (state = initialState, action: ProfileReducerActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {

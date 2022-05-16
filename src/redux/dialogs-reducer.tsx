@@ -1,7 +1,8 @@
-import {DispatchActionType} from "./state";
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 const SEND_MESSAGE = 'SEND-MESSAGE'
+
+export type DialogReducerActionType = ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
 
 export type MessagesType = {
     id?: number
@@ -33,7 +34,7 @@ let initialState: DialogsPageType = {
     newMessageBody: ''
 }
 
-const dialogsReducer = (state = initialState, action: DispatchActionType): DialogsPageType => {
+const dialogsReducer = (state = initialState, action: DialogReducerActionType): DialogsPageType => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:

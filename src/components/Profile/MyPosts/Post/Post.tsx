@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Post.module.css'
-import {PostsType} from "../../../../redux/state";
+import {PostsType} from "../../../../redux/profile-reducer";
+
 
 
 export const Post: React.FC<PostsType> = (props) => {

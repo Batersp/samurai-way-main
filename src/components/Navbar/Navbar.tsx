@@ -7,7 +7,7 @@ import {StateToPropsType} from "./NavbarContainer";
 
 export const Navbar = (props: StateToPropsType) => {
 
-    let friendsElement = props.sideBar.friends.map(el => <Friends name={el.name} url={el.url}/>)
+    let friendsElement = props.NavBar.friends.map(el => <Friends name={el.name} url={el.url}/>)
 
     return (
         <nav className={s.nav}>
