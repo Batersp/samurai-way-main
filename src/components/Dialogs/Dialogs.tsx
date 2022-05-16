@@ -2,11 +2,11 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DispatchToPropsType, mapStateToPropsType} from "./DialogsContainer";
+import {DispatchToPropsType, StateToPropsType} from "./DialogsContainer";
 
 
 
-export const Dialogs = (props: mapStateToPropsType & DispatchToPropsType) => {
+export const Dialogs = (props: StateToPropsType & DispatchToPropsType) => {
 
     let state = props.dialogsPage
 

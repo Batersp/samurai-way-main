@@ -6,7 +6,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 
 
-export type mapStateToPropsType = {
+export type StateToPropsType = {
     dialogsPage: DialogsPageType
 }
 
@@ -15,7 +15,7 @@ export type DispatchToPropsType = {
     SendMessage: () => void
 }
 
-const mapStateToProps = (state: mapStateToPropsType): mapStateToPropsType => {
+const mapStateToProps = (state: StateToPropsType): StateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
     }
 }
 
-export const DialogsContainer = connect<mapStateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect<StateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs)
