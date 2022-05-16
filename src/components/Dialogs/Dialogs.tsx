@@ -5,7 +5,6 @@ import {Message} from "./Message/Message";
 import {DispatchToPropsType, StateToPropsType} from "./DialogsContainer";
 
 
-
 export const Dialogs = (props: StateToPropsType & DispatchToPropsType) => {
 
     let state = props.dialogsPage
@@ -28,14 +27,16 @@ export const Dialogs = (props: StateToPropsType & DispatchToPropsType) => {
                 {dialogsElement}
             </div>
             <div className={s.messages}>
-               <div> {messagesElement} </div>
+                <div> {messagesElement} </div>
                 <div>
                     <div><textarea
                         placeholder='Enter your message'
                         value={newMessageBody}
                         onChange={onNewMessageChange}
                     /></div>
-                    <div><button onClick={sendMessageClick}>Send</button></div>
+                    <div>
+                        <button onClick={sendMessageClick}>Send</button>
+                    </div>
                 </div>
             </div>
         </div>

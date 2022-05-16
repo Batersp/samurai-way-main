@@ -4,8 +4,7 @@ import {Post} from "./Post/Post";
 import {DispatchToPropsType, StateToPropsType} from "./MyPostsContainer";
 
 
-
-export const MyPosts = (props: StateToPropsType & DispatchToPropsType  ) => {
+export const MyPosts = (props: StateToPropsType & DispatchToPropsType) => {
 
 
     let postsElement = props.profilePage.posts.map(p => <Post message={p.message} likeCounts={p.likeCounts}/>)
