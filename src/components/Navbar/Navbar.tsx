@@ -7,7 +7,7 @@ import {StateToPropsType} from "./NavbarContainer";
 
 export const Navbar = (props: StateToPropsType) => {
 
-    let friendsElement = props.NavBar.friends.map(el => <Friends name={el.name} url={el.url}/>)
+    let friendsElement = props.NavBar.friends.map((el,index) => <Friends key={index} name={el.name} url={el.url}/>)
 
     return (
         <nav className={s.nav}>
@@ -25,6 +25,9 @@ export const Navbar = (props: StateToPropsType) => {
             </div>
             <div className={s.item}>
                 <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
+            </div>
+            <div className={s.item}>
+                <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
             </div>
             <div>
                 <h2>My Friends</h2>

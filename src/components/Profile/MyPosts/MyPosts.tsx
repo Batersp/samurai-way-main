@@ -7,7 +7,7 @@ import {DispatchToPropsType, StateToPropsType} from "./MyPostsContainer";
 export const MyPosts = (props: StateToPropsType & DispatchToPropsType) => {
 
 
-    let postsElement = props.profilePage.posts.map(p => <Post message={p.message} likeCounts={p.likeCounts}/>)
+    let postsElement = props.profilePage.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 

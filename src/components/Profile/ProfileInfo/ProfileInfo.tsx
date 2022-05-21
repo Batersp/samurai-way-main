@@ -5,7 +5,7 @@ export const ProfileInfo = () => {
     return (
         <div>
             <div>
-                <img
+                <img className={s.photo}
                     src='https://www.arsenal.com/sites/default/files/styles/large_16x9/public/images/MOTM.jpg?itok=JOg4NtNr'/>
             </div>
             <div className={s.descriptionBlock}>
