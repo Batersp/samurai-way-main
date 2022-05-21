@@ -30,7 +30,6 @@ let initialState : InitialStateType = {
 const usersReducer = (state = initialState, action: TsarType): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
-            debugger
             return {...state, users: [...state.users].map(el => el.id === action.payload.id? {...el, followed: true}: el)}
         }
         case UNFOLLOW: {

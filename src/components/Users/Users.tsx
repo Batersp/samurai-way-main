@@ -34,25 +34,30 @@ export const Users = (props: StateToPropsType & DispatchToPropsType) => {
     }
     return (
         <div>
-            {props.users.map(el => <div key={el.id}>
-                <div>
+            {props.users.map(el => <div className={style.main} key={el.id}>
+                <div className={style.ava_btn}>
                     <img className={style.photo} src={el.photo}/>
-                    <span>{el.fullName}</span>
-                    <span>{el.location.country}</span>
+                    <div> {el.followed
+                        ? <button className={style.btn} onClick={() => {
+                            props.unfollow(el.id)
+                        }}>Unfollow</button>
+                        : <button className={style.unbtn} onClick={() => {
+                            props.follow(el.id)
+                        }}>Follow</button>
+                    }</div>
                 </div>
-                <div>{el.followed
-                    ? <button onClick={() => {
-                        props.unfollow(el.id)
-                    }}>Unfollow</button>
-                    : <button onClick={() => {
-                        props.follow(el.id)
-                    }}>Follow</button>
-                }
-                    <span>{el.status}</span>
-                    <span>{el.location.city}</span>
-
+                <div className={style.second}>
+                <div className={style.name_status}>
+                    <div className={style.name}>{el.fullName}</div>
+                    <div className={style.status}>{el.status}</div>
+                </div>
+                <div className={style.location}>
+                    <div className={style.country}>{el.location.country}</div>
+                    <div className={style.city}>{el.location.city}</div>
+                </div>
                 </div>
             </div>)}
         </div>
     )
 }
+
