@@ -3,7 +3,7 @@ import profileReducer, {ProfileReducerActionType} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
 
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     subscriber: (observer: () => void) => void
     _callSubscriber: () => void
@@ -11,8 +11,7 @@ export type StoreType = {
     dispatch: (action: DialogReducerActionType & ProfileReducerActionType) => void
 }
 
-/*export type DispatchActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
-    | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>*/
+
 
 let store: StoreType = {
     _state: {
@@ -73,43 +72,43 @@ let store: StoreType = {
 }
 
 
-export type FriendsType = {
+type FriendsType = {
     name: string
     url: string
 }
 
-export type MessagesType = {
+type MessagesType = {
     id?: number
     message: string
 }
 
-export type DialogsType = {
+type DialogsType = {
     id: number
     name: string
 }
 
-export type PostsType = {
+type PostsType = {
     id?: number
     message: string
     likeCounts: number
 }
 
-export type SideBarType = {
+type SideBarType = {
     friends: Array<FriendsType>
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsType>
     textForNewPost: string
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageBody: string
 }
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sideBar: SideBarType

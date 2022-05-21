@@ -13,7 +13,7 @@ export type DispatchToPropsType = {
     addPost: () => void
 }
 
-const mapStateToProps = (state: StateToPropsType): StateToPropsType => {
+const mapStateToProps = (state: AppStateType): StateToPropsType => {
     return {
         profilePage: state.profilePage
     }
