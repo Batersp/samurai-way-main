@@ -7,7 +7,7 @@ export type StateToPropsType = {
     NavBar: NavBarType
 }
 
-const mapStateToProps = (state: StateToPropsType): StateToPropsType => {
+const mapStateToProps = (state: AppStateType): StateToPropsType => {
     return {
         NavBar: state.NavBar
     }
