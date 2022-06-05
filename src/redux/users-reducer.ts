@@ -8,9 +8,9 @@ export type UsersType = {
     id: number
     name: string
     status: string
-   /* location: {city: string, country: string}*/
+    /* location: {city: string, country: string}*/
     followed: boolean
-    photos: {small: string, large: string}
+    photos: { small: string, large: string }
 }
 
 export type InitialStateType = {
@@ -20,7 +20,7 @@ export type InitialStateType = {
     currentPage: number
 }
 
-let initialState : InitialStateType = {
+let initialState: InitialStateType = {
     users: [],
     pageSize: 10,
     totalUserCount: 0,
@@ -31,10 +31,16 @@ let initialState : InitialStateType = {
 const usersReducer = (state = initialState, action: TsarType): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
-            return {...state, users: [...state.users].map(el => el.id === action.payload.id? {...el, followed: true}: el)}
+            return {
+                ...state,
+                users: [...state.users].map(el => el.id === action.payload.id ? {...el, followed: true} : el)
+            }
         }
         case UNFOLLOW: {
-            return {...state, users: [...state.users].map(el => el.id === action.payload.id? {...el, followed: false}: el)}
+            return {
+                ...state,
+                users: [...state.users].map(el => el.id === action.payload.id ? {...el, followed: false} : el)
+            }
         }
         case SET_USERS: {
             return {...state, users: [...action.payload.users]}
@@ -45,7 +51,8 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
         case SET_CURRENT_PAGE : {
             return {...state, currentPage: action.payload.pageNumber}
         }
-        default: return state
+        default:
+            return state
     }
 
 
