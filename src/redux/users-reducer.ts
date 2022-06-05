@@ -67,49 +67,49 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
 
 type TsarType = FollowACType | UnfollowACType | SetUsersACType | SetTotalUsersCountACType | SetCurrentPageACType | SetIsFetchingACType
 
-type FollowACType = ReturnType<typeof followAC>
-type UnfollowACType = ReturnType<typeof unfollowAC>
-type SetUsersACType = ReturnType<typeof setUsersAC>
-type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
-type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-type SetIsFetchingACType = ReturnType<typeof setIsFetchingAC>
+type FollowACType = ReturnType<typeof follow>
+type UnfollowACType = ReturnType<typeof unfollow>
+type SetUsersACType = ReturnType<typeof setUsers>
+type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+type SetIsFetchingACType = ReturnType<typeof setIsFetching>
 
-export const followAC = (id: number) => {
+export const follow = (id: number) => {
     return {
         type: FOLLOW,
         payload: {id}
     } as const
 }
 
-export const unfollowAC = (id: number) => {
+export const unfollow = (id: number) => {
     return {
         type: UNFOLLOW,
         payload: {id}
     } as const
 }
 
-export const setUsersAC = (users: Array<UsersType>) => {
+export const setUsers = (users: Array<UsersType>) => {
     return {
         type: SET_USERS,
         payload: {users}
     } as const
 }
 
-export const setTotalUsersCountAC = (count: number) => {
+export const setTotalUsersCount = (count: number) => {
     return {
         type: SET_TOTAL_USERS_COUNT,
         payload: {count}
     } as const
 }
 
-export const setCurrentPageAC = (pageNumber: number) => {
+export const setCurrentPage = (pageNumber: number) => {
     return {
         type: SET_CURRENT_PAGE,
         payload: {pageNumber}
     } as const
 }
 
-export const setIsFetchingAC = (isFetcging: boolean) => {
+export const setIsFetching = (isFetcging: boolean) => {
     return {
         type: SET_IS_FETCHING,
         payload: {isFetcging}

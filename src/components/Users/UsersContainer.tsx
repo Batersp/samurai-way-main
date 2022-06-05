@@ -1,18 +1,17 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {
-    followAC,
-    setCurrentPageAC, setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setIsFetching,
+    setTotalUsersCount,
+    setUsers,
+    unfollow,
     UsersType
 } from '../../redux/users-reducer';
-import {Dispatch} from 'redux';
 import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
-import preloader from '../../assets/images/39624707_60x60.gif'
 import {Preloader} from "../common/Preloader/Preloader";
 
 
@@ -82,6 +81,7 @@ const mapStateToProps = (state: AppStateType): StateToPropsType => {
     }
 }
 
+/*
 const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
     return {
         follow: (userId: number) => {
@@ -104,5 +104,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
         }
     }
 }
+*/
 
-export const UsersContainer = connect<StateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersApi)
+export const UsersContainer = connect<StateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps,
+    {follow, unfollow, setUsers, setTotalUsersCount, setCurrentPage, setIsFetching})(UsersApi)
