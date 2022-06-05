@@ -66,3 +66,7 @@
     color: gold;
 }
 
+.selectedPage {
+    font-weight: bold;
+}
+

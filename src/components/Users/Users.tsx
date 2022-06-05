@@ -9,14 +9,37 @@ import {AppStateType} from "../../redux/redux-store";
 export class Users extends React.Component<StateToPropsType & DispatchToPropsType, AppStateType> {
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
         })
     }
 
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUserCount / this.props.pageSize)
+        let pages = []
+        for(let i = 1; i <= pagesCount; i++ ) {
+            pages.push(i)
+        }
+
         return (
             <div>
+                <div>
+                    {pages.map((el, index) => {
+                        return <span key={index}
+                                     className={this.props.currentPage === el? style.selectedPage: ''}
+                        onClick={() => this.onPageChanged(el)}>{el}</span>
+                    })}
+                </div>
                 <div>
                     {this.props.users.map(el => <div className={style.main} key={el.id}>
                         <div className={style.ava_btn}>
