@@ -1,7 +1,11 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
-export type ProfileReducerActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
+export type ProfileReducerActionType = SetUserProfileType | AddPostACType | UpdatePostTextACType
+type SetUserProfileType = ReturnType<typeof setUserProfile>
+type AddPostACType = ReturnType<typeof addPostAC>
+type UpdatePostTextACType = ReturnType<typeof updatePostTextAC>
 
 export type PostsType = {
     id?: number
@@ -12,6 +16,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     textForNewPost: string
+    profilePhotos: string
 }
 
 let initialState: ProfilePageType = {
@@ -19,7 +24,8 @@ let initialState: ProfilePageType = {
         {id: 1, message: 'hey bro lets do it', likeCounts: 20},
         {id: 2, message: 'Great game', likeCounts: 34}
     ],
-    textForNewPost: ''
+    textForNewPost: '',
+    profilePhotos: ''
 }
 
 
@@ -36,6 +42,9 @@ const profileReducer = (state = initialState, action: ProfileReducerActionType):
         case UPDATE_POST_TEXT: {
             return {...state, textForNewPost: action.payload.text}
         }
+        case SET_USER_PROFILE: {
+            return {...state, profilePhotos: action.payload.photos}
+        }
         default:
             return state
 
@@ -50,6 +59,13 @@ export const updatePostTextAC = (text: string) => {
     return {
         type: 'UPDATE-POST-TEXT',
         payload: {text}
+    } as const
+}
+
+export const setUserProfile = (photos: string) => {
+    return {
+        type: SET_USER_PROFILE,
+        payload : {photos}
     } as const
 }
 
