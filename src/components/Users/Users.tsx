@@ -13,6 +13,8 @@ type UsersPropsType = {
     unfollow: (userId: number) => void
     follow: (userId: number) => void
     users: Array<UsersType>
+    followingInProgress: Array<number>
+    setFollowingInProgress: (inProgress: boolean, id: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -39,21 +41,25 @@ export const Users = (props: UsersPropsType) => {
                             <img className={style.photo} src={el.photos.small != null ? el.photos.small : userPhoto}/>
                         </NavLink>
                         <div> {el.followed
-                            ? <button className={style.btn} onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id ===el.id)} className={style.btn} onClick={() => {
+                                props.setFollowingInProgress(true, el.id)
                                 usersApi.unfollow(el.id)
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.unfollow(el.id)
                                         }
+                                        props.setFollowingInProgress(false, el.id)
                                     })
                             }
                             }>Unfollow</button>
-                            : <button className={style.unbtn} onClick={() => {
+                            : <button disabled={props.followingInProgress.some(id => id ===el.id)} className={style.unbtn} onClick={() => {
+                                props.setFollowingInProgress(true, el.id)
                                 usersApi.follow(el.id)
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.follow(el.id)
                                         }
+                                        props.setFollowingInProgress(false, el.id)
                                     })
                             }}>Follow</button>
                         }</div>

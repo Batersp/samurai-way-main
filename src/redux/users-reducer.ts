@@ -4,12 +4,12 @@ const SET_USERS = 'SET_USERS'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
+const SET_FOLLOWING_IN_PROGRESS = 'SET_FOLLOWING_IN_PROGRESS'
 
 export type UsersType = {
     id: number
     name: string
     status: string
-    /* location: {city: string, country: string}*/
     followed: boolean
     photos: { small: string, large: string }
 }
@@ -20,6 +20,7 @@ export type InitialStateType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 let initialState: InitialStateType = {
@@ -27,7 +28,8 @@ let initialState: InitialStateType = {
     pageSize: 10,
     totalUserCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 
@@ -54,8 +56,15 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
         case SET_CURRENT_PAGE : {
             return {...state, currentPage: action.payload.pageNumber}
         }
-        case "SET_IS_FETCHING": {
-            return {...state, isFetching: action.payload.isFetcging}
+        case SET_IS_FETCHING: {
+            return {...state, isFetching: action.payload.isFetching}
+        }
+        case SET_FOLLOWING_IN_PROGRESS: {
+            return {
+                ...state,
+                followingInProgress: action.payload.inProgress ? [...state.followingInProgress, action.payload.id]
+                    : state.followingInProgress.filter(el => el !== action.payload.id)
+            }
         }
         default:
             return state
@@ -66,6 +75,7 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
 
 
 type TsarType = FollowACType | UnfollowACType | SetUsersACType | SetTotalUsersCountACType | SetCurrentPageACType | SetIsFetchingACType
+| SetFollowingInProgressType
 
 type FollowACType = ReturnType<typeof follow>
 type UnfollowACType = ReturnType<typeof unfollow>
@@ -73,6 +83,7 @@ type SetUsersACType = ReturnType<typeof setUsers>
 type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
 type SetIsFetchingACType = ReturnType<typeof setIsFetching>
+type SetFollowingInProgressType = ReturnType<typeof setFollowingInProgress>
 
 export const follow = (id: number) => {
     return {
@@ -109,10 +120,17 @@ export const setCurrentPage = (pageNumber: number) => {
     } as const
 }
 
-export const setIsFetching = (isFetcging: boolean) => {
+export const setIsFetching = (isFetching: boolean) => {
     return {
         type: SET_IS_FETCHING,
-        payload: {isFetcging}
+        payload: {isFetching}
+    } as const
+}
+
+export const setFollowingInProgress = (inProgress: boolean, id: number) => {
+    return {
+        type: SET_FOLLOWING_IN_PROGRESS,
+        payload: {inProgress, id}
     } as const
 }
 
