@@ -16,10 +16,7 @@ export const usersApi = {
         })
     },
 
-    getMe() {
-        return instance.get(`auth/me`,
-        )
-    },
+
 
     follow(id: number) {
         return instance.post(`follow/${id}`, {},
@@ -29,5 +26,15 @@ export const usersApi = {
     unfollow(id: number) {
         return instance.delete(`follow/${id}`,
         )
+    },
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId)
     }
+}
+
+export const authAPI = {
+    getMe() {
+        return instance.get(`auth/me`,
+        )
+    },
 }
