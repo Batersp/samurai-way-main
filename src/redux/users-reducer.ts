@@ -1,3 +1,6 @@
+import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -74,25 +77,31 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
 }
 
 
-type TsarType = FollowACType | UnfollowACType | SetUsersACType | SetTotalUsersCountACType | SetCurrentPageACType | SetIsFetchingACType
-| SetFollowingInProgressType
+type TsarType =
+    FollowACType
+    | UnfollowACType
+    | SetUsersACType
+    | SetTotalUsersCountACType
+    | SetCurrentPageACType
+    | SetIsFetchingACType
+    | SetFollowingInProgressType
 
-type FollowACType = ReturnType<typeof follow>
-type UnfollowACType = ReturnType<typeof unfollow>
+type FollowACType = ReturnType<typeof followSuccess>
+type UnfollowACType = ReturnType<typeof unfollowSuccess>
 type SetUsersACType = ReturnType<typeof setUsers>
 type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
 type SetIsFetchingACType = ReturnType<typeof setIsFetching>
 type SetFollowingInProgressType = ReturnType<typeof setFollowingInProgress>
 
-export const follow = (id: number) => {
+export const followSuccess = (id: number) => {
     return {
         type: FOLLOW,
         payload: {id}
     } as const
 }
 
-export const unfollow = (id: number) => {
+export const unfollowSuccess = (id: number) => {
     return {
         type: UNFOLLOW,
         payload: {id}
@@ -133,5 +142,45 @@ export const setFollowingInProgress = (inProgress: boolean, id: number) => {
         payload: {inProgress, id}
     } as const
 }
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setIsFetching(true))
+        usersApi.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+
+            })
+    }
+}
+
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+        usersApi.unfollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(setFollowingInProgress(false, userId))
+            })
+    }
+}
+
+export const unfollow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+        usersApi.follow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(setFollowingInProgress(false, userId))
+            })
+    }
+}
+
 
 export default usersReducer
