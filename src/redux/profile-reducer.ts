@@ -1,14 +1,16 @@
 import {Dispatch} from "redux";
-import {usersApi} from "../api/api";
+import {profileApi, usersApi} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_STATUS = 'SET_STATUS'
 
-export type ProfileReducerActionType = SetUserProfileType | AddPostACType | UpdatePostTextACType
+export type ProfileReducerActionType = SetUserProfileType | AddPostACTypeType | UpdatePostTextACType | setStatusACType
 type SetUserProfileType = ReturnType<typeof setUserProfile>
-type AddPostACType = ReturnType<typeof addPostAC>
+type AddPostACTypeType = ReturnType<typeof addPostAC>
 type UpdatePostTextACType = ReturnType<typeof updatePostTextAC>
+type setStatusACType = ReturnType<typeof setStatus>
 
 export type PostsType = {
     id?: number
@@ -20,6 +22,7 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     textForNewPost: string
     profilePhotos: string
+    status: string
 }
 
 let initialState: ProfilePageType = {
@@ -28,7 +31,8 @@ let initialState: ProfilePageType = {
         {id: 2, message: 'Great game', likeCounts: 34}
     ],
     textForNewPost: '',
-    profilePhotos: ''
+    profilePhotos: '',
+    status: ''
 }
 
 
@@ -47,6 +51,9 @@ const profileReducer = (state = initialState, action: ProfileReducerActionType):
         }
         case SET_USER_PROFILE: {
             return {...state, profilePhotos: action.payload.photos}
+        }
+        case SET_STATUS: {
+            return {...state, status: action.payload.status}
         }
         default:
             return state
@@ -68,16 +75,44 @@ export const updatePostTextAC = (text: string) => {
 export const setUserProfile = (photos: string) => {
     return {
         type: SET_USER_PROFILE,
-        payload : {photos}
+        payload: {photos}
+    } as const
+}
+
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS,
+        payload: {status}
     } as const
 }
 
 export const getUserProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
-        usersApi.getProfile(userId)
+        profileApi.getProfile(userId)
             .then(response => {
 
                 dispatch(setUserProfile(response.data.photos.large))
+            })
+    }
+}
+
+export const getStatus = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        profileApi.getStatus(userId)
+            .then(response => {
+                dispatch(setStatus(response.data))
+            })
+    }
+}
+
+export const updateStatus = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileApi.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
+
             })
     }
 }

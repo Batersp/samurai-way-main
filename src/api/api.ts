@@ -16,8 +16,6 @@ export const usersApi = {
         })
     },
 
-
-
     follow(id: number) {
         return instance.post(`follow/${id}`, {},
         )
@@ -26,10 +24,25 @@ export const usersApi = {
     unfollow(id: number) {
         return instance.delete(`follow/${id}`,
         )
-    },
+    }
+
+}
+
+
+export const profileApi = {
+
     getProfile(userId: string) {
         return instance.get(`profile/` + userId)
+    },
+
+    getStatus(userId: string) {
+        return instance.get<string>(`profile/status/` + userId)
+    },
+
+    updateStatus(status: string) {
+        return instance.put<UpdateStatusType>(`profile/status/`, { status: status})
     }
+
 }
 
 export const authAPI = {
@@ -37,4 +50,11 @@ export const authAPI = {
         return instance.get(`auth/me`,
         )
     },
+}
+
+
+type UpdateStatusType = {
+    resultCode: number
+    messages: string[],
+    data: {}
 }
