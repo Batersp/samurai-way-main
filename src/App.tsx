@@ -3,10 +3,10 @@ import './App.css';
 import {Route} from "react-router-dom";
 import {NavbarContainer} from "./components/Navbar/NavbarContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import Login from "./components/Login/Login";
 
 
 const App = () => {
