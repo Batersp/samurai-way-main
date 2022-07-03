@@ -1,85 +1,36 @@
-import React from 'react';
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import * as Yup from "yup";
+import React from "react";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {loginFields} from "./loginInterface";
 
+export const Login = () => {
 
+    const {register, handleSubmit, formState: {errors}} = useForm<loginFields>()
 
-const validateLoginForm = (values: { email: string; }) => {
-    const errors = { email: ''};
-    if (!values.email) {
-        errors.email = 'Required 1';
-    } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test( values.email )
-    ) {
-        errors.email = 'Invalid email address';
-    }
-    return errors;
-};
-
-const validationSchemaLoginForm = Yup.object().shape( {
-
-    password: Yup.string()
-        .min( 2, "Must be longer than 2 characters" )
-        .max( 5, "Must be shorter than 5 characters" )
-        .required( "Required 2" )
-} );
-
-
-const Login = () => {
+    const onSubmit: SubmitHandler<loginFields> = (data) => console.log(data)
 
     return (
-        <div>
-            <h2> Login  </h2>
-
-            <Formik
-                initialValues={{
-                    email: "",
-                    password: "",
-                    rememberMe: false
-                }}
-                validate={validateLoginForm}
-                validationSchema={validationSchemaLoginForm}
-                onSubmit={(values) => {
-                    console.log( values )
-                }}
-            >
-                {() => (
-                    <Form>
-                        <div>
-                            <Field
-                                name={'email'}
-                                type={'text'}
-                                placeholder={'e-mail'} />
-                        </div>
-                        <ErrorMessage name="email" component="div" />
-
-                        <div>
-                            <Field
-                                name={'password'}
-                                type={'password'}
-                                placeholder={'password'} />
-                        </div>
-                        <ErrorMessage name="password" component="div" />
-
-                        <div>
-                            <Field
-                                type={'checkbox'}
-                                name={'rememberMe'}
-                                id='rememberMe' />
-                            <label htmlFor={'rememberMe'}> remember me </label>
-                        </div>
-
-                        <button type={'submit'}>Login</button>
-                    </Form>
-                )}
-            </Formik>
-
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                ...
+                <input {...register("login", {required: 'Name is required field'})}
+                       type="text"
+                       placeholder={'enter login'}
+                />
+                <span>Login</span>
+                {errors.login && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.login.message}</div>}
+            </div>
+            <div>
+                <input {...register("password", {required: 'Password is required field'})}
+                       type="text"
+                       placeholder={'enter password'}
+                />
+                <span>Password</span>
+                {errors.password && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.password.message}</div>}
+            </div>
+            <div><input {...register("rememberMe")} type="checkbox"/></div>
+            <div>
+                <button>Send</button>
             </div>
 
-        </div>
+        </form>
     )
 }
-
-export default Login;
