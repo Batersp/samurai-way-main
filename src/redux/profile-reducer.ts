@@ -1,15 +1,13 @@
 import {Dispatch} from "redux";
-import {profileApi, usersApi} from "../api/api";
+import {profileApi} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
-export type ProfileReducerActionType = SetUserProfileType | AddPostACTypeType | UpdatePostTextACType | setStatusACType
+export type ProfileReducerActionType = SetUserProfileType | AddPostACTypeType | setStatusACType
 type SetUserProfileType = ReturnType<typeof setUserProfile>
 type AddPostACTypeType = ReturnType<typeof addPostAC>
-type UpdatePostTextACType = ReturnType<typeof updatePostTextAC>
 type setStatusACType = ReturnType<typeof setStatus>
 
 export type PostsType = {
@@ -20,7 +18,6 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: Array<PostsType>
-    textForNewPost: string
     profilePhotos: string
     status: string
 }
@@ -30,7 +27,6 @@ let initialState: ProfilePageType = {
         {id: 1, message: 'hey bro lets do it', likeCounts: 20},
         {id: 2, message: 'Great game', likeCounts: 34}
     ],
-    textForNewPost: '',
     profilePhotos: '',
     status: ''
 }
@@ -41,14 +37,12 @@ const profileReducer = (state = initialState, action: ProfileReducerActionType):
         case ADD_POST: {
             let newPost = {
                 id: 3,
-                message: state.textForNewPost,
+                message: action.payload.message,
                 likeCounts: 0
             }
-            return {...state, posts: [...state.posts, newPost], textForNewPost: ''}
+            return {...state, posts: [...state.posts, newPost]}
         }
-        case UPDATE_POST_TEXT: {
-            return {...state, textForNewPost: action.payload.text}
-        }
+
         case SET_USER_PROFILE: {
             return {...state, profilePhotos: action.payload.photos}
         }
@@ -61,14 +55,10 @@ const profileReducer = (state = initialState, action: ProfileReducerActionType):
     }
 }
 
-export const addPostAC = () => ({
-    type: 'ADD-POST' as const
-})
-
-export const updatePostTextAC = (text: string) => {
+export const addPostAC = (message: string) => {
     return {
-        type: 'UPDATE-POST-TEXT',
-        payload: {text}
+        type: 'ADD-POST',
+        payload: {message}
     } as const
 }
 
