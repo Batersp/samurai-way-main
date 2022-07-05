@@ -20,7 +20,7 @@ class ProfileContainerApi extends React.Component<StateToPropsType & DispatchToP
     render() {
 
         return (
-            <Profile {...this.props} status={this.props.status} updateStatus={this.props.updateStatus}/>
+            <Profile {...this.props} fullName={this.props.fullName} status={this.props.status} updateStatus={this.props.updateStatus}/>
         )
     }
 
@@ -35,12 +35,14 @@ type DispatchToPropsType = {
 type StateToPropsType = {
     photos: string
     status: string
+    fullName: string
 }
 
 const mapStateToProps = (state: AppStateType): StateToPropsType => {
     return {
-        photos: state.profilePage.profilePhotos,
-        status: state.profilePage.status
+        photos: state.profilePage.profile.photos.small,
+        status: state.profilePage.status,
+        fullName: state.profilePage.profile.fullName
     }
 }
 

@@ -18,8 +18,16 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: Array<PostsType>
-    profilePhotos: string
     status: string
+    profile: {
+        aboutMe: string
+        contacts: {facebook: string, website: string, vk: string, twitter: string, instagram: string}
+        fullName: string
+        lookingForAJob: boolean
+        lookingForAJobDescription: boolean
+        photos: {small: string, large: string}
+        userId: number
+    }
 }
 
 let initialState: ProfilePageType = {
@@ -27,7 +35,15 @@ let initialState: ProfilePageType = {
         {id: 1, message: 'hey bro lets do it', likeCounts: 20},
         {id: 2, message: 'Great game', likeCounts: 34}
     ],
-    profilePhotos: '',
+    profile: {
+        aboutMe: '',
+        contacts: {facebook: '', website: '', vk: '', twitter: '', instagram: ''},
+        fullName: '',
+        lookingForAJob: false,
+        lookingForAJobDescription: false,
+        photos: {small: '', large: ''},
+        userId: 0
+    },
     status: ''
 }
 
@@ -44,7 +60,7 @@ const profileReducer = (state = initialState, action: ProfileReducerActionType):
         }
 
         case SET_USER_PROFILE: {
-            return {...state, profilePhotos: action.payload.photos}
+            return {...state, profile:{...state.profile, fullName: action.payload.fullName, photos: {...state.profile.photos, small: action.payload.photos}} }
         }
         case SET_STATUS: {
             return {...state, status: action.payload.status}
@@ -62,10 +78,10 @@ export const addPostAC = (message: string) => {
     } as const
 }
 
-export const setUserProfile = (photos: string) => {
+export const setUserProfile = (photos: string, fullName: string) => {
     return {
         type: SET_USER_PROFILE,
-        payload: {photos}
+        payload: {photos, fullName}
     } as const
 }
 
@@ -80,7 +96,8 @@ export const getUserProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
         profileApi.getProfile(userId)
             .then(response => {
-                dispatch(setUserProfile(response.data.photos.large))
+                debugger
+                dispatch(setUserProfile(response.data.photos.large, response.data.fullNameu))
             })
     }
 }
