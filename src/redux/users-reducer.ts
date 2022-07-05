@@ -36,7 +36,7 @@ let initialState: InitialStateType = {
 }
 
 
-const usersReducer = (state = initialState, action: TsarType): InitialStateType => {
+const usersReducer = (state = initialState, action: UserActionType): InitialStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -77,7 +77,7 @@ const usersReducer = (state = initialState, action: TsarType): InitialStateType 
 }
 
 
-type TsarType =
+export type UserActionType =
     FollowACType
     | UnfollowACType
     | SetUsersACType

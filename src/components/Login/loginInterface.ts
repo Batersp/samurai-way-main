@@ -1,5 +1,5 @@
 export interface loginFields {
-    login: string
+    Email: string
     password: string
     rememberMe: boolean
 }

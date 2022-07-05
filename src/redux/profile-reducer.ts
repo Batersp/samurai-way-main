@@ -80,7 +80,6 @@ export const getUserProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
         profileApi.getProfile(userId)
             .then(response => {
-
                 dispatch(setUserProfile(response.data.photos.large))
             })
     }

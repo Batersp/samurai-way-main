@@ -26,7 +26,9 @@ let initialState: NavBarType = {
     ]
 }
 
-const NavBarReducer = (state = initialState, action: any): NavBarType => {
+export type SideBarReducerActionType = any
+
+const NavBarReducer = (state = initialState, action: SideBarReducerActionType): NavBarType => {
 
 
     return state

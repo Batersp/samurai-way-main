@@ -1,24 +1,35 @@
 import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {loginFields} from "./loginInterface";
+import {useDispatch, useSelector} from "react-redux";
+import {Loginn} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 export const Login = () => {
+
+    const dispatch = useDispatch()
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm<loginFields>({mode: "onBlur"})
 
     const onSubmit: SubmitHandler<loginFields> = (data) => {
+        dispatch(Loginn(data.Email, data.password, data.rememberMe))
         console.log(data)
         reset()
     }
+
+
+    if(isAuth) return <Redirect to={'/profile'}/>
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
 
                 <label>
-                    Login
+                    Email
                     <div>
-                        <input {...register("login", {
+                        <input {...register("Email", {
                             required: 'Name is required field',
                             minLength: {
                                 value: 6,
@@ -26,12 +37,12 @@ export const Login = () => {
                             }
                         })}
                                type="text"
-                               placeholder={'enter login'}
+                               placeholder={'enter Email'}
                         />
                     </div>
                 </label>
 
-                {errors.login && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.login.message}</div>}
+                {errors.Email && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.Email.message}</div>}
             </div>
             <div>
                 <label>
@@ -46,13 +57,9 @@ export const Login = () => {
                             maxLength: {
                                 value: 20,
                                 message: 'maximum 20 characters'
-                            },
-                            pattern: {
-                                value: /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/,
-                                message: 'password must contain at least one number, one special character, uppercase and lowercase letters'
                             }
                         })}
-                               type="text"
+                               type="password"
                                placeholder={'enter password'}
                         />
                     </div>
