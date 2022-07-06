@@ -96,8 +96,7 @@ export const getUserProfile = (userId: string) => {
     return (dispatch: Dispatch) => {
         profileApi.getProfile(userId)
             .then(response => {
-                debugger
-                dispatch(setUserProfile(response.data.photos.large, response.data.fullNameu))
+                dispatch(setUserProfile(response.data.photos.large, response.data.fullName))
             })
     }
 }

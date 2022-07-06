@@ -5,11 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {Loginn} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import style from './Login.module.css'
 
 export const Login = () => {
 
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const messageError = useSelector<AppStateType,string>(state => state.auth.messageError)
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm<loginFields>({mode: "onBlur"})
 
@@ -70,6 +72,9 @@ export const Login = () => {
                 <input {...register("rememberMe")} type="checkbox"/>
                 Remember me
             </label>
+            <div className={style.messageError}>
+                {messageError}
+            </div>
             <div>
                 <button>Send</button>
             </div>

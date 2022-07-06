@@ -13,6 +13,9 @@ type ParamsType = {
 class ProfileContainerApi extends React.Component<StateToPropsType & DispatchToPropsType & RouteComponentProps<ParamsType>, AppStateType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
+        if(!userId) {
+            userId = this.props.id.toString()
+        }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
@@ -36,13 +39,15 @@ type StateToPropsType = {
     photos: string
     status: string
     fullName: string
+    id: number
 }
 
 const mapStateToProps = (state: AppStateType): StateToPropsType => {
     return {
         photos: state.profilePage.profile.photos.small,
         status: state.profilePage.status,
-        fullName: state.profilePage.profile.fullName
+        fullName: state.profilePage.profile.fullName,
+        id: state.auth.id
     }
 }
 
