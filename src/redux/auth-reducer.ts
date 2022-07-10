@@ -59,9 +59,8 @@ const setMessageError = (message: string) => {
 
 export const getAuthUserData = () => {
     return (dispatch: Dispatch) => {
-        authAPI.getMe()
+        return  authAPI.getMe()
             .then(response => {
-                debugger
                 if (response.data.resultCode === 0) {
                     let {id, email, login} = response.data.data
                     dispatch(setAuthUserData(id, login, email, true))
@@ -72,7 +71,7 @@ export const getAuthUserData = () => {
 
 export const Loginn = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, AppActionsType> => {
     return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
+      return  authAPI.login(email, password, rememberMe)
             .then(response => {
                 if(response.data.resultCode === 0) {
                     dispatch(getAuthUserData())

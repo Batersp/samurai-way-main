@@ -5,8 +5,7 @@ import sidebarReducer, {SideBarReducerActionType} from "./sidebar-reducer";
 import usersReducer, {UserActionType} from "./users-reducer";
 import {authReducer, AuthReducerActionType} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
-
-
+import {appReducer, AppReducerActionType} from "./app-reducer";
 
 
 export type AppStateType = ReturnType<typeof reducers>
@@ -15,13 +14,15 @@ export type AppActionsType = DialogReducerActionType
     | SideBarReducerActionType
     | UserActionType
     | AuthReducerActionType
+    | AppReducerActionType
 
 let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     NavBar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    app: appReducer
 
 })
 

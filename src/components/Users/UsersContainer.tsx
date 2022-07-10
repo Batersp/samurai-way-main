@@ -5,7 +5,6 @@ import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type StateToPropsType = {
@@ -98,7 +97,7 @@ export const UsersContainer = connect<StateToPropsType, DispatchToPropsType, {},
     })(UsersApi)*/
 
 export default compose<React.ComponentType>(
-    WithAuthRedirect,
+
     connect<StateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps,
         {
             follow, unfollow,
