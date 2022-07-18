@@ -2,6 +2,8 @@ import React from 'react';
 import s from './ProfileInfo.module.css'
 import profilePhoto from '../../../assets/images/profile.png'
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+
 
 
 type ProfileInfoPropsType = {
@@ -24,7 +26,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>{props.fullName}</div>
 
                 <div>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 </div>
 
             </>
