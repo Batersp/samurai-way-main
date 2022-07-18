@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 type PropsType = {
     status: string
@@ -6,16 +6,19 @@ type PropsType = {
 }
 
 export const ProfileStatusWithHooks = (props: PropsType) => {
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
 
-   const [editMode, setEditMode] = useState(false)
-   const [status, setStatus] = useState(props.status)
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
     const activatedEditMode = () => {
-      setEditMode(true)
+        setEditMode(true)
     }
 
     const deactivatedEditMode = () => {
-        setEditMode(true)
+        setEditMode(false)
         props.updateStatus(status)
     }
 
@@ -23,23 +26,24 @@ export const ProfileStatusWithHooks = (props: PropsType) => {
         setStatus(e.currentTarget.value)
     }
 
-        return (
-            <div>
-                { !editMode &&
-                    <div>
-                        <span onDoubleClick={activatedEditMode}>{status || 'status is missing'}</span>
-                    </div>
-                }
 
-                {editMode &&
-                    <div>
-                        <input onChange={onChangeInput} autoFocus onBlur={deactivatedEditMode}
-                               value={status}/>
-                    </div>
-                }
+    return (
+        <div>
+            {!editMode &&
+                <div>
+                    <span onDoubleClick={activatedEditMode}>{status || 'status is missing'}</span>
+                </div>
+            }
 
-            </div>
-        )
+            {editMode &&
+                <div>
+                    <input onChange={onChangeInput} autoFocus onBlur={deactivatedEditMode}
+                           value={status}/>
+                </div>
+            }
+
+        </div>
+    )
 
 }
 
