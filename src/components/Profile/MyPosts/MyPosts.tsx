@@ -5,9 +5,9 @@ import {DispatchToPropsType, StateToPropsType} from "./MyPostsContainer";
 import {NewPostForm} from "./NewPostForm";
 
 
-export const MyPosts = (props: StateToPropsType & DispatchToPropsType) => {
+export const MyPosts = React.memo( (props: StateToPropsType & DispatchToPropsType) => {
 
-
+    console.log('render')
     let postsElement = props.profilePage.posts.map(p => <Post key={p.id} message={p.message}
                                                               likeCounts={p.likeCounts}/>)
 
@@ -21,4 +21,4 @@ export const MyPosts = (props: StateToPropsType & DispatchToPropsType) => {
         </div>
 
     )
-}
+})

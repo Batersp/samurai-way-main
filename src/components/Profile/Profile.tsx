@@ -19,3 +19,4 @@ export const Profile = (props: ProfilePropsType) => {
         </div>
     )
 }
+
