@@ -23,11 +23,11 @@ export type ProfilePageType = {
     status: string
     profile: {
         aboutMe: string
-        contacts: {facebook: string, website: string, vk: string, twitter: string, instagram: string}
+        contacts: { facebook: string, website: string, vk: string, twitter: string, instagram: string }
         fullName: string
         lookingForAJob: boolean
         lookingForAJobDescription: boolean
-        photos: {small: string, large: string}
+        photos: { small: string, large: string }
         userId: number
     }
 }
@@ -62,13 +62,20 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
         }
 
         case SET_USER_PROFILE: {
-            return {...state, profile:{...state.profile, fullName: action.payload.fullName, photos: {...state.profile.photos, small: action.payload.photos}} }
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    fullName: action.payload.fullName,
+                    photos: {...state.profile.photos, small: action.payload.photos}
+                }
+            }
         }
         case SET_STATUS: {
             return {...state, status: action.payload.status}
         }
         case DELETE_POST: {
-            return {...state, posts:[...state.posts.filter(el => el.id !== action.payload.id)]}
+            return {...state, posts: [...state.posts.filter(el => el.id !== action.payload.id)]}
         }
         default:
             return state
@@ -105,32 +112,25 @@ export const deletePostAC = (id: number) => {
 }
 
 export const getUserProfile = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        profileApi.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data.photos.large, response.data.fullName))
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await profileApi.getProfile(userId)
+        dispatch(setUserProfile(response.data.photos.large, response.data.fullName))
     }
 }
 
 export const getStatus = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        profileApi.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await profileApi.getStatus(userId)
+        dispatch(setStatus(response.data))
     }
 }
 
 export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileApi.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status))
-                }
-
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await profileApi.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
 

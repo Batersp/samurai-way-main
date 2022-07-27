@@ -144,42 +144,35 @@ export const setFollowingInProgress = (inProgress: boolean, id: number) => {
 }
 
 export const requestUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setIsFetching(true))
         dispatch(setCurrentPage(currentPage))
-        usersApi.getUsers(currentPage, pageSize)
-            .then(data => {
-                dispatch(setIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount))
-
-            })
+        let data = await usersApi.getUsers(currentPage, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
     }
 }
 
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+    dispatch(setFollowingInProgress(true, userId))
+    let response = await apiMethod(userId)
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(setFollowingInProgress(false, userId))
+}
+
 export const follow = (userId: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setFollowingInProgress(true, userId))
-        usersApi.unfollow(userId)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(setFollowingInProgress(false, userId))
-            })
+    return async (dispatch: Dispatch) => {
+        followUnfollowFlow(dispatch, userId, usersApi.unfollow.bind(usersApi), unfollowSuccess)
     }
 }
 
 export const unfollow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setFollowingInProgress(true, userId))
-        usersApi.follow(userId)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(setFollowingInProgress(false, userId))
-            })
+        followUnfollowFlow(dispatch, userId, usersApi.follow.bind(usersApi), followSuccess)
     }
 }
 

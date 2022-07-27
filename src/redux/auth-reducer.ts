@@ -3,8 +3,8 @@ import {authAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppActionsType, AppStateType} from "./redux-store";
 
-const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
-const SET_MESSAGE_ERROR = 'SET_MESSAGE_ERROR'
+const SET_AUTH_USER_DATA = 'auth/SET_AUTH_USER_DATA'
+const SET_MESSAGE_ERROR = 'auth/SET_MESSAGE_ERROR'
 
 export type InitialStateType = {
     id: number
@@ -29,7 +29,7 @@ export const authReducer = (state = initialState, action: AuthReducerActionType)
             return {...state, ...action.payload}
         }
 
-        case "SET_MESSAGE_ERROR": {
+        case SET_MESSAGE_ERROR: {
             return {...state, messageError: action.payload.message}
         }
         default:
@@ -58,39 +58,32 @@ const setMessageError = (message: string) => {
 
 
 export const getAuthUserData = () => {
-    return (dispatch: Dispatch) => {
-        return  authAPI.getMe()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data
-                    dispatch(setAuthUserData(id, login, email, true))
-                }
-            })
+    return async (dispatch: Dispatch) => {
+        let response = await authAPI.getMe()
+        if (response.data.resultCode === 0) {
+            let {id, email, login} = response.data.data
+            dispatch(setAuthUserData(id, login, email, true))
+        }
     }
 }
 
 export const Loginn = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, AppActionsType> => {
-    return (dispatch) => {
-      return  authAPI.login(email, password, rememberMe)
-            .then(response => {
-                if(response.data.resultCode === 0) {
-                    dispatch(getAuthUserData())
-                } else {
-                    dispatch(setMessageError(response.data.messages[0]))
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe)
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        } else {
+            dispatch(setMessageError(response.data.messages[0]))
+        }
     }
 }
 
 
-
 export const Logout = (): ThunkAction<void, AppStateType, unknown, AppActionsType> => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(response => {
-                if(response.data.resultCode === 0) {
-                    dispatch(setAuthUserData(0, '', '', false))
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(0, '', '', false))
+        }
     }
 }

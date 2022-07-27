@@ -34,7 +34,8 @@ export type DispatchToPropsType = {
 export class UsersApi extends React.Component<StateToPropsType & DispatchToPropsType, AppStateType> {
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+        let {currentPage, pageSize} = this.props
+        this.props.requestUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -71,38 +72,6 @@ const mapStateToProps = (state: AppStateType): StateToPropsType => {
         followingInProgress: getFollowingInProgress(state)
     }
 }
-
-/*
-const mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setTotalUsersCount: (count: number) => {
-            dispatch(setTotalUsersCountAC(count))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setIsFetching: (isFetcging: boolean) => {
-            dispatch(setIsFetchingAC(isFetcging))
-        }
-    }
-}
-*/
-/*
-export const UsersContainer = connect<StateToPropsType, DispatchToPropsType, {}, AppStateType>(mapStateToProps,
-    {
-        follow, unfollow,
-        setCurrentPage,
-        getUsers
-    })(UsersApi)*/
 
 export default compose<React.ComponentType>(
 
