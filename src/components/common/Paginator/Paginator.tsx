@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import style from './Paginator.module.css'
 
 type PaginatorPropsType = {
@@ -6,9 +6,13 @@ type PaginatorPropsType = {
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
+    portionSize: number
 }
 
-export const Paginator: React.FC<PaginatorPropsType> = ({totalUserCount, pageSize, currentPage, onPageChanged}) => {
+export const Paginator: React.FC<PaginatorPropsType> = ({
+                                                            totalUserCount, pageSize,
+                                                            currentPage, onPageChanged, portionSize
+                                                        }) => {
 
     let pagesCount = Math.ceil(totalUserCount / pageSize)
     let pages = []
@@ -16,13 +20,35 @@ export const Paginator: React.FC<PaginatorPropsType> = ({totalUserCount, pageSiz
         pages.push(i)
     }
 
+    let portionCount = Math.ceil(pagesCount / portionSize)
+    let [portionNumber, setPortionNumber] = useState(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+    let rightPortionPageNumber = portionNumber * portionSize
+
+
     return (
-        <div>
-            {pages.map((el, index) => {
-                return <span key={index}
-                             className={currentPage === el ? style.selectedPage : ''}
-                             onClick={() => onPageChanged(el)}>{el}</span>
-            })}
+        <div className={style.paginator}>
+            {portionNumber > 1 &&
+                <button onClick={() => {
+                    setPortionNumber(portionNumber - 1)
+                }}>left</button>}
+
+
+            {
+                pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                    .map((el, index) => {
+                        return <span key={index}
+                                     className={currentPage === el ? style.selectedPage : style.paginator}
+                                     onClick={() => onPageChanged(el)}>{el}</span>
+                    })}
+
+            {portionCount > portionNumber &&
+                <button onClick={() => {
+                    setPortionNumber(portionNumber + 1)
+                }}>right</button>
+            }
+
+
         </div>
     )
 }

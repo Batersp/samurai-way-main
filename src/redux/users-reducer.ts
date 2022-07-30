@@ -24,6 +24,7 @@ export type InitialStateType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
+    portionSize: number
 }
 
 let initialState: InitialStateType = {
@@ -32,7 +33,8 @@ let initialState: InitialStateType = {
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
+    portionSize: 10
 }
 
 
