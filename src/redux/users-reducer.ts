@@ -34,7 +34,7 @@ let initialState: InitialStateType = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
-    portionSize: 10
+    portionSize: 20
 }
 
 

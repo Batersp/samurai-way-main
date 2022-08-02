@@ -38,7 +38,7 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
                 pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map((el, index) => {
                         return <span key={index}
-                                     className={currentPage === el ? style.selectedPage : style.paginator}
+                                     className={currentPage === el ? `${style.selectedPage} ${style.page}` : style.page}
                                      onClick={() => onPageChanged(el)}>{el}</span>
                     })}
 
