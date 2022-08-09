@@ -7,10 +7,14 @@ let state: ProfilePageType = {
     ],
     profile: {
         aboutMe: '',
-        contacts: {facebook: '', website: '', vk: '', twitter: '', instagram: ''},
+        contacts: {
+            facebook: '', website: '', vk: '', twitter: '', instagram: '', youtube: '',
+            github: '',
+            mainLink: ''
+        },
         fullName: '',
         lookingForAJob: false,
-        lookingForAJobDescription: false,
+        lookingForAJobDescription: 'false',
         photos: {small: '', large: ''},
         userId: 0
     },
