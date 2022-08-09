@@ -1,49 +1,38 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './ProfileInfo.module.css'
 import profilePhoto from '../../../assets/images/profile.png'
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
-
 
 
 type ProfileInfoPropsType = {
     photos: string
     status: string
     fullName: string
+    isOwner: boolean
     updateStatus: (status: string) => void
-
+    savePhoto: (photo: any) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
-    if(!props.photos) {
-        return (
-            <>
-                <div>
-                    <img src={profilePhoto} alt={'profile'}/>
-                </div>
-
-                <div>{props.fullName}</div>
-
-                <div>
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
-                </div>
-
-            </>
-        )
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files?.length) {
+            props.savePhoto(e.target.files[0])
+        }
     }
 
     return (
-        <div>
-           {/* <div>
-                <img className={s.photo}
-                    src='https://www.arsenal.com/sites/default/files/styles/large_16x9/public/images/MOTM.jpg?itok=JOg4NtNr'/>
-            </div>*/}
-            <div className={s.descriptionBlock}>
-                <img src={props.photos} alt="photo profile"/>
-               <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+        <div className={s.descriptionBlock}>
+            <img className={s.photo} src={props.photos || profilePhoto}  alt={'profile'}/>
+            {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+            <div>{props.fullName}</div>
+
+            <div>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
+
         </div>
-    );
+    )
+
 };
 
