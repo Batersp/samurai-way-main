@@ -1,5 +1,4 @@
 import axios from "axios";
-import {FormValuesType} from "../components/Profile/ProfileInfo/ProfileDataForm/ProfileDataForm";
 
 const instance = axios.create({
     withCredentials: true,
@@ -47,14 +46,11 @@ export const profileApi = {
     savePhoto(photoFile: any) {
         const formData = new FormData()
         formData.append('image', photoFile)
-        return instance.post<any>(`profile/photo/`, formData, {
+        return instance.post<any>('profile/photo/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-    },
-    saveProfile(data: UpdateProfileType) {
-        return instance.put<UpdateStatusType>(`profile`, data)
     }
 
 }
@@ -79,16 +75,4 @@ type UpdateStatusType = {
     resultCode: number
     messages: string[],
     data: {}
-}
-
-export type UpdateProfileType = {
-    fullName: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    aboutMe: string
-    contacts: {facebook: string, website: string, vk: string, twitter: string, instagram: string, youtube: string,
-        github: string,
-        mainLink: string}
-    userId: number
-
 }

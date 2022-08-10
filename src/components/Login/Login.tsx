@@ -13,7 +13,7 @@ export const Login = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const messageError = useSelector<AppStateType,string>(state => state.auth.messageError)
 
-    const {register, handleSubmit,  reset, formState: {errors}} = useForm<loginFields>({mode: "onBlur"})
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<loginFields>({mode: "onBlur"})
 
     const onSubmit: SubmitHandler<loginFields> = (data) => {
         dispatch(Loginn(data.Email, data.password, data.rememberMe))
