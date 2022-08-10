@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {profileApi} from "../api/api";
+import {UpdateProfileRequestType} from "../components/Profile/ProfileInfo/ProfileDataForm/ProfileDataForm";
+import {AppStateType} from "./redux-store";
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -25,18 +27,22 @@ export type PostsType = {
     likeCounts: number
 }
 
+export type ProfileType = {
+    aboutMe: string
+    contacts: { facebook: string, website: string, vk: string, twitter: string, instagram: string, youtube: string,
+        github: string,
+        mainLink: string }
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: { small: string, large: string }
+    userId: number
+}
+
 export type ProfilePageType = {
     posts: Array<PostsType>
     status: string
-    profile: {
-        aboutMe: string
-        contacts: { facebook: string, website: string, vk: string, twitter: string, instagram: string }
-        fullName: string
-        lookingForAJob: boolean
-        lookingForAJobDescription: boolean
-        photos: { small: string, large: string }
-        userId: number
-    }
+    profile: ProfileType
 }
 
 let initialState: ProfilePageType = {
@@ -46,10 +52,12 @@ let initialState: ProfilePageType = {
     ],
     profile: {
         aboutMe: '',
-        contacts: {facebook: '', website: '', vk: '', twitter: '', instagram: ''},
+        contacts: {facebook: '', website: '', vk: '', twitter: '', instagram: '', youtube: '',
+            github: '',
+            mainLink: ''},
         fullName: '',
         lookingForAJob: false,
-        lookingForAJobDescription: false,
+        lookingForAJobDescription: '',
         photos: {small: '', large: ''},
         userId: 0
     },
@@ -69,14 +77,7 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
         }
 
         case SET_USER_PROFILE: {
-            return {
-                ...state,
-                profile: {
-                    ...state.profile,
-                    fullName: action.payload.fullName,
-                    photos: {...state.profile.photos, small: action.payload.photos}
-                }
-            }
+            return {...state, profile: action.payload.profile}
         }
         case SET_STATUS: {
             return {...state, status: action.payload.status}
@@ -100,10 +101,10 @@ export const addPostAC = (message: string) => {
     } as const
 }
 
-export const setUserProfile = (photos: string, fullName: string) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: SET_USER_PROFILE,
-        payload: {photos, fullName}
+        payload: {profile}
     } as const
 }
 
@@ -131,7 +132,7 @@ export const savePhotoSuccess = (photos: { small: string, large: string }) => {
 export const getUserProfile = (userId: string) => {
     return async (dispatch: Dispatch) => {
         let response = await profileApi.getProfile(userId)
-        dispatch(setUserProfile(response.data.photos.large, response.data.fullName))
+        dispatch(setUserProfile(response.data))
     }
 }
 
@@ -156,6 +157,16 @@ export const savePhoto = (file: any) => {
         let response = await profileApi.savePhoto(file)
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.data.photos))
+        }
+    }
+}
+
+export const saveProfile = (profile: UpdateProfileRequestType) => {
+    return async (dispatch: any, getState: () => AppStateType) => {
+        const userId = getState().auth.id
+        let response = await profileApi.saveProfile(profile)
+        if (response.data.resultCode === 0) {
+            dispatch(getUserProfile(userId.toString()))
         }
     }
 }
