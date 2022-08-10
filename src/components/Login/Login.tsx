@@ -12,11 +12,11 @@ export const Login = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const messageError = useSelector<AppStateType,string>(state => state.auth.messageError)
-
+    const captcha = useSelector<AppStateType, string | null>(state => state.auth.captcha)
     const {register, handleSubmit, reset, formState: {errors}} = useForm<loginFields>({mode: "onBlur"})
 
     const onSubmit: SubmitHandler<loginFields> = (data) => {
-        dispatch(Loginn(data.Email, data.password, data.rememberMe))
+        dispatch(Loginn(data.Email, data.password, data.rememberMe, data.captcha))
         console.log(data)
         reset()
     }
@@ -75,6 +75,13 @@ export const Login = () => {
             <div className={style.messageError}>
                 {messageError}
             </div>
+            {captcha && <div>
+                <img src={captcha} alt=""/>
+                <div>
+                    <input {...register("captcha")} type="text"/>
+                </div>
+            </div> }
+
             <div>
                 <button>Send</button>
             </div>
