@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import {NavbarContainer} from "./components/Navbar/NavbarContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -23,23 +23,27 @@ class App extends React.Component<MapStateToPropsType & DispatchToPropsType> {
 
     render() {
 
-       /* if (!this.props.initialized) {
-            return <Preloader/>
-        }*/
+        /* if (!this.props.initialized) {
+             return <Preloader/>
+         }*/
 
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <NavbarContainer/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/dialogs' render={() => {
-                        return <React.Suspense fallback={<Preloader/>}>
-                            <DialogsContainer/>
-                        </React.Suspense>
-                    }}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Switch>
+                        <Route exact path='/' render={() => <ProfileContainer/>}/>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route path='/dialogs' render={() => {
+                            return <React.Suspense fallback={<Preloader/>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+                        }}/>
+                        <Route path='/users' render={() => <UsersContainer/>}/>
+                        <Route path='/login' render={() => <Login/>}/>
+                        <Route path='*' render={() => <div>404 Not Found Page</div>}/>
+                    </Switch>
                 </div>
             </div>
         )
