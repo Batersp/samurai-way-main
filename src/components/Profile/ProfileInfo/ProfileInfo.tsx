@@ -47,15 +47,12 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
 
             {editMode
                 ? <ProfileDataForm onSubmit={onSubmit} profile={profile}/>
-                : <ProfileData goToEditMode={() => setEditMode(true)} profile={profile} isOwner={isOwner}/>}
+                : <ProfileData status={status} goToEditMode={() => setEditMode(true)} profile={profile} isOwner={isOwner}/>}
 
 
             {/*  <img className={s.photo} src={profile.photos.large || profilePhoto}  alt={'profile'}/>
             {isOwner &&  <InputDownload callback={onMainPhotoSelected}/>}*/}
 
-            <div>
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-            </div>
 
         </div>
     )

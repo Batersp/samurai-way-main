@@ -1,7 +1,12 @@
 .descriptionBlock {
     display: flex;
     flex-direction: column;
-    width: 35%;
+    align-items: center;
+    width: 25%;
     padding-top: 20px;
-    padding-left: 20px;
+    background-color: lightpink;
+}
+
+.status {
+    font-family: 'Ubuntu', serif;
 }

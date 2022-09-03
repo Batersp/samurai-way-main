@@ -1,12 +1,16 @@
 import React from "react";
-import {ProfileType} from "../../../../redux/profile-reducer";
+import {ProfileType, updateStatus} from "../../../../redux/profile-reducer";
 import s from "./ProfileData.module.css";
+import {Button, Paper} from "@mui/material";
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import {ProfileStatusWithHooks} from "../ProfileStatusWithHooks";
 
 
 type ProfileDataType = {
     profile: ProfileType
     isOwner: boolean
     goToEditMode: () => void
+    status: string
 }
 
 type ContactPropsType = {
@@ -14,28 +18,39 @@ type ContactPropsType = {
     contactValue: string
 }
 
-export const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEditMode}) => {
+export const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEditMode, status}) => {
     return (
         <div className={s.container}>
-            {isOwner && <div>
-                <button onClick={goToEditMode}>edit</button>
+            {isOwner && <div className={s.aboutMe}>
+                 <div className={s.aboutMeText}>Info</div>  <ModeEditOutlineIcon className={s.icon} onClick={goToEditMode} />
             </div>}
-            <div><b>Full name: </b> {profile.fullName}</div>
+            <Paper elevation={10}  className={s.info}>
+            <div className={s.item}>
+                <b>Name: </b> {profile.fullName}
+            </div>
 
-            <div>
+                <div className={s.item}>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                </div>
+
+            <div className={s.item}>
                 <b>Looking for a job</b> : {profile.lookingForAJob ? 'yes' : 'no'}
             </div>
-            {profile.lookingForAJob && <div>{profile.lookingForAJobDescription}</div>}
-            <div>
+                <div className={s.item}>
+                    <b>Skills</b> :{profile.lookingForAJob && <span>{profile.lookingForAJobDescription}</span>}
+                </div>
+            <div className={s.item}>
                 <b> About me </b>: {profile.aboutMe ? profile.aboutMe : 'nothing'}
             </div>
 
-            <div>
+            <div className={s.item}>
                 <b> Contacts </b>: {Object.keys(profile.contacts).map(key => {
                 // @ts-ignore
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
             })}
             </div>
+
+            </Paper>
 
         </div>
     )
@@ -44,8 +59,11 @@ export const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEd
 
 const Contact = (props: ContactPropsType) => {
     return (
-        <div className={s.contact}>
-            <b>{props.contactTitle}</b>: {props.contactValue}
+        <div className={s.contacts}>
+            <div className={s.contact}>
+                <b>{props.contactTitle}</b>: {props.contactValue}
+            </div>
+
         </div>
     )
 }
