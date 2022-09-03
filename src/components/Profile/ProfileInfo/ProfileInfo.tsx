@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './ProfileInfo.module.css'
-import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {FormValuesType, ProfileDataForm, UpdateProfileRequestType} from "./ProfileDataForm/ProfileDataForm";
 import {Photo} from "./Photo/Photo";

@@ -3,6 +3,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
 import {UpdateProfileRequestType} from "./ProfileInfo/ProfileDataForm/ProfileDataForm";
+import s from './Profile.module.css'
 
 type ProfilePropsType = {
    profile: ProfileType
@@ -17,7 +18,7 @@ export const Profile = (props: ProfilePropsType) => {
 
 
     return (
-        <div>
+        <div className={s.container}>
             <ProfileInfo saveProfile={props.saveProfile} savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>

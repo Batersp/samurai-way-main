@@ -1,0 +1,44 @@
+.container {
+    height: 100px;
+    width: 85%;
+    background-color: rgba(188, 192, 191, 0.89);
+    margin: 0 auto;
+    border-radius: 30px;
+}
+
+.main {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%
+}
+
+.imgContainer {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
+}
+
+.img {
+    height: 100%;
+    border-radius: 30px;
+}
+
+.textFieldContainer {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.textField {
+
+}
+
+.btnContainer {
+    margin-right: 20px;
+
+}
+
+.btn {
+    border-radius: 30px;
+}

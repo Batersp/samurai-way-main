@@ -1,5 +1,8 @@
 .postsBlock {
     padding: 10px;
+    background-color: gold;
+    width: 75%;
+    margin-left: 20px;
 }
 
 .posts {
