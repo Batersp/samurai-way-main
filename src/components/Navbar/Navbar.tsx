@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import s from './Navbar.module.css'
 import {Friends} from "./Friends/Friends";
 import {StateToPropsType} from "./NavbarContainer";
+import logoArsenal from "../../assets/images/logoArsenal.svg";
 
 
 export const Navbar = (props: StateToPropsType) => {
@@ -11,6 +12,10 @@ export const Navbar = (props: StateToPropsType) => {
 
     return (
         <nav className={s.nav}>
+            <div className={s.logo}>
+            <img
+                src={logoArsenal}/>
+            </div>
             <div className={s.item}>
                 <NavLink to='/profile' activeClassName={s.active}>Profile</NavLink>
             </div>

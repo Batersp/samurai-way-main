@@ -1,17 +1,22 @@
 .header {
-    grid-area: h;
-    background-color: gold;
+    width: 100%;
+    background-color: #f00000;
+    height: 400px;
+    background-image: url("https://e00-marca.uecdn.es/assets/multimedia/imagenes/2022/06/28/16564331605740.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
-.header img {
-    width: 40px;
 
-}
 
 .loginBlock {
-    float: left;
+    float: right;
 }
 
 .loginBlock a {
     color: white;
 }
+
+
+/*
+https://e00-marca.uecdn.es/assets/multimedia/imagenes/2022/06/28/16564331605740.jpg*/

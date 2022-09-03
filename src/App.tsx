@@ -29,8 +29,9 @@ class App extends React.Component<MapStateToPropsType & DispatchToPropsType> {
 
         return (
             <div className='app-wrapper'>
-                <HeaderContainer/>
                 <NavbarContainer/>
+                <div className={'header-and-content'}>
+                <HeaderContainer/>
                 <div className='app-wrapper-content'>
                     <Switch>
                         <Route exact path='/' render={() => <ProfileContainer/>}/>
@@ -44,6 +45,7 @@ class App extends React.Component<MapStateToPropsType & DispatchToPropsType> {
                         <Route path='/login' render={() => <Login/>}/>
                         <Route path='*' render={() => <div>404 Not Found Page</div>}/>
                     </Switch>
+                </div>
                 </div>
             </div>
         )
