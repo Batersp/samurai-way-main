@@ -2,7 +2,7 @@ import {useFormik} from "formik";
 import React from "react";
 import {ProfileType} from "../../../../redux/profile-reducer";
 import {FormControl, TextareaAutosize, TextField} from "@mui/material";
-import s from '../ProfileInfo.module.css'
+import s from './ProfileDataForm.module.css'
 
 
 type ProfileDataFormType = {
@@ -55,7 +55,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
     })
 
     return (
-        <div>
+        <div className={s.container}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <button type='submit' style={{width: '50px'}}>save</button>

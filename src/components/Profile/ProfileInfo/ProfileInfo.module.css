@@ -1,12 +1,7 @@
 .descriptionBlock {
-    padding: 10px;
-}
-
-.photo {
-    width: 150px;
-    border-radius: 50%;
-}
-
-.contact {
-    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    padding-top: 20px;
+    padding-left: 20px;
 }

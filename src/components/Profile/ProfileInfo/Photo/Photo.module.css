@@ -1,0 +1,15 @@
+.container {
+
+}
+
+.main {
+    width: 200px;
+    border-radius: 20px;
+}
+
+.photo {
+    width: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
