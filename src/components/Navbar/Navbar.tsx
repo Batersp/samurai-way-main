@@ -34,8 +34,8 @@ export const Navbar = (props: StateToPropsType) => {
             <div className={s.item}>
                 <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
             </div>
-            <div>
-                <h2>My Friends</h2>
+            <div className={s.friends}>
+                <h2>Club Friends</h2>
                 {friendsElement}
             </div>
 

@@ -1,5 +1,17 @@
+.friends {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    padding-top: 10px;
+}
+
 .friends img {
-    width: 50px;
-    height: 50px;
+    width: 90%;
     border-radius: 50%;
+}
+
+.name {
+    margin-top: 10px;
+
 }

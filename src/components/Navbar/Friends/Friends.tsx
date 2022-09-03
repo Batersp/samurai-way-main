@@ -9,7 +9,7 @@ export const Friends = (props: FriendsType) => {
     return (
         <div className={s.friends}>
             <img src={props.url}/>
-            <div>
+            <div className={s.name}>
             {props.name}
             </div>
         </div>
