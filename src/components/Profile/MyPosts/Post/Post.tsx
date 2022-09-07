@@ -1,18 +1,28 @@
 import React from 'react';
 import s from './Post.module.css'
-import {PostsType} from "../../../../redux/profile-reducer";
 
+type PropsType = {
+    photo: string
+    message: string
+    id: number | undefined
+    likeCounts: number
+    name: string
+}
 
-
-export const Post: React.FC<PostsType> = (props) => {
+export const Post: React.FC<PropsType> = ({photo, id, message, likeCounts, name}) => {
     return (
 
-        <div key={props.id} className={s.item}>
-            <img src='https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg'/>
-            {props.message}
-            <div>
-                <span>LIKE</span>
-                <span> {props.likeCounts}</span>
+        <div key={id} className={s.container}>
+            <div className={s.imgContainer}>
+                <img src={photo}/>
+                <span className={s.name}>{name}</span>
+            </div>
+            <div className={s.text}>
+                {message}
+            </div>
+            <div className={s.likes}>
+                <span className={s.like}>LIKE</span>
+                <span className={s.likeCounts}> {likeCounts}</span>
             </div>
         </div>
 

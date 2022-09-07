@@ -39,6 +39,7 @@ export const NewPostForm = ({addPost, photo}: NewPostFormType) => {
                 {errors.message && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.message.message}</div>}
                 <div className={s.btnContainer}>
                     <Button
+                        fullWidth
                         className={s.btn}
                         size={"small"}
                         color={"error"}

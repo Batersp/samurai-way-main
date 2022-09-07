@@ -73,7 +73,7 @@ export const profileReducer = (state = initialState, action: ProfileReducerActio
                 message: action.payload.message,
                 likeCounts: 0
             }
-            return {...state, posts: [...state.posts, newPost]}
+            return {...state, posts: [newPost, ...state.posts ]}
         }
 
         case SET_USER_PROFILE: {

@@ -1,8 +1,41 @@
-.item {
+.container {
     color: white;
+    position: relative;
+    background-color: rgba(188, 192, 191, 0.89);
+    width: 85%;
+    margin: 30px auto 0;
+    border-radius: 30px;
+    padding: 20px;
 }
 
-.item img {
+.container img {
     width: 50px;
     border-radius: 50%;
+}
+
+.imgContainer {
+    position: relative;
+}
+
+.name {
+    display: inline-block;
+    position: absolute;
+    left: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-shadow: 5px 5px 5px rgba(231, 64, 196, 0.89);
+   }
+
+.text {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.likes {
+    font-weight: bolder;
+   position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #f00000;
 }

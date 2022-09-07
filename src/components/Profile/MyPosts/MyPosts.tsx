@@ -11,13 +11,13 @@ export const MyPosts = React.memo( (props: StateToPropsType & DispatchToPropsTyp
 
 
     console.log('render')
-    let postsElement = props.profilePage.posts.map(p => <Post key={p.id} message={p.message}
+    let postsElement = props.profilePage.posts.map(p => <Post name={props.profilePage.profile.fullName} id={p.id} photo={props.profilePage.profile.photos.large} key={p.id} message={p.message}
                                                               likeCounts={p.likeCounts}/>)
 
     return (
         <div className={s.postsBlock} >
             <NewPostForm photo={props.profilePage.profile.photos.large} addPost={props.addPost}/>
-            <h3>My posts</h3>
+            <h3 className={s.title}>My posts</h3>
 
             <div className={s.posts}>
                 {postsElement}
