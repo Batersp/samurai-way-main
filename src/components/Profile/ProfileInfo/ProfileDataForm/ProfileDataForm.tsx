@@ -1,8 +1,10 @@
 import {useFormik} from "formik";
 import React from "react";
 import {ProfileType} from "../../../../redux/profile-reducer";
-import {FormControl, TextareaAutosize, TextField} from "@mui/material";
+import {FormControl, Paper, TextareaAutosize, TextField} from "@mui/material";
 import s from './ProfileDataForm.module.css'
+
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 
 type ProfileDataFormType = {
@@ -56,11 +58,14 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
 
     return (
         <div className={s.container}>
+            <div className={s.aboutMe}>
+                <div className={s.aboutMeText}>Change</div>
+            </div>
+            <Paper elevation={10}  className={s.info}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <button type='submit' style={{width: '50px'}}>save</button>
-
-                    <div>
+                        <button className={s.btn} type='submit' style={{width: '50px'}}>save</button>
+                    <div className={s.item}>
                         <b>Full name</b>
                         <TextField
                       /*      onChange={formik.handleChange}
@@ -72,7 +77,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
                             {...formik.getFieldProps('fullName')}
                         />
                     </div>
-                    <div>
+                    <div className={s.item}>
                         <b>Looking for a job</b>
                         <div>
                             <input
@@ -84,7 +89,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
                             />
                         </div>
                     </div>
-                    <div>
+                    <div className={s.item}>
                         <b>My Professionals Skills</b>
                         <div>
                             <TextareaAutosize
@@ -98,7 +103,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
                             />
                         </div>
                     </div>
-                    <div>
+                    <div className={s.item}>
                         <b>About me</b>
                         <div>
                             <TextareaAutosize
@@ -112,16 +117,17 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
                             />
                         </div>
                     </div>
-                    <div>
+                    <div className={s.item}>
                         <b> Contacts </b> {Object.keys(profile.contacts).map(el => {
 
 
 
-                        return <div key={el} className={s.contact}>
+                        return <div key={el} className={s.contacts}>
                             <b>{el}</b>
                             <TextField
                               /*  onChange={formik.handleChange}
                                 name={'contacts.' + el}*/
+                                className={s.contact}
                                 placeholder={el}
                                 size='small'
                                 style={style}
@@ -134,6 +140,7 @@ export const ProfileDataForm: React.FC<ProfileDataFormType> = ({profile, onSubmi
 
                 </FormControl>
             </form>
+            </Paper>
 
         </div>
     )

@@ -1,7 +1,7 @@
 import React from "react";
 import {ProfileType, updateStatus} from "../../../../redux/profile-reducer";
 import s from "./ProfileData.module.css";
-import {Button, Paper} from "@mui/material";
+import {Paper} from "@mui/material";
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import {ProfileStatusWithHooks} from "../ProfileStatusWithHooks";
 

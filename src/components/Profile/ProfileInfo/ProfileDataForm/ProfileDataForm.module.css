@@ -1,4 +1,49 @@
 .container {
-    width: 30%;
+    margin-top: 20px;
+    width: 100%;
 
+}
+
+.aboutMe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.aboutMeText {
+    font-family: 'Ubuntu', serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.icon {
+    position: absolute;
+    right: 0;
+}
+
+.info {
+    margin: 10px;
+    padding: 10px;
+}
+
+.item {
+    font-family: 'Ubuntu', serif;
+    margin-bottom: 20px;
+
+}
+
+.contacts {
+    padding-left: 20px;
+}
+
+.contact {
+    padding: 10px;
+}
+
+
+.btn {
+    font-size: 15px;
+    background-color: #f00000;
+    margin-bottom: 20px;
 }
