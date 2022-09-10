@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
 import {initializedApp} from "./redux/app-reducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {News} from "./components/News/News";
 
 /*import DialogsContainer from "./components/Dialogs/DialogsContainer";*/
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
@@ -43,6 +44,7 @@ class App extends React.Component<MapStateToPropsType & DispatchToPropsType> {
                         }}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/login' render={() => <Login/>}/>
+                        <Route path='/news' render={() => <News/>}/>
                         <Route path='*' render={() => <div>404 Not Found Page</div>}/>
                     </Switch>
                 </div>
