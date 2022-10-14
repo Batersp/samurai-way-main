@@ -3,7 +3,7 @@ import {UpdateProfileRequestType} from "../components/Profile/ProfileInfo/Profil
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL: `https://social-network.samuraijs.com/api/1.0/`,
+    baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
         'API-KEY': 'e3f64c95-5af6-4e5f-a0a6-dfda897924eb'
     }

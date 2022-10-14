@@ -21,6 +21,9 @@ export const Login = () => {
         reset()
     }
 
+    const dataaa = new Date()
+    const year = dataaa.getFullYear()
+
 
     if(isAuth) return <Redirect to={'/profile'}/>
 
@@ -46,6 +49,30 @@ export const Login = () => {
 
                 {errors.Email && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.Email.message}</div>}
             </div>
+
+
+            <div>
+
+                <label>
+                    TEST
+                    <div>
+                        <input {...register("test", {
+                            required: 'test is required field',
+                            max: {
+                                value: year,
+                                message: 'hahahaha'
+                            }
+                        })}
+                               type="text"
+                               placeholder={'this is test'}
+                        />
+                    </div>
+                </label>
+
+                {errors.test && <div style={{color: 'red', fontWeight: 'bold'}}>{errors.test.message}</div>}
+            </div>
+
+
             <div>
                 <label>
                     Password
